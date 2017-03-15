@@ -6,11 +6,11 @@ import numpy as np
 
 
 snd_mfcc, labels = input_snd_mfcc_data("data")
-# ys, srs = load_allsnd_data("data/ga")
+ys, srs = load_allsnd_data("data/ga")
 #
-# idx = 2
-# y = ys[idx]
-# sr = srs[idx]
+idx = 2
+y = ys[idx]
+sr = srs[idx]
 
 # plot_sound(y_crop,sr)
-# plot_sound(y, sr)
+plot_sound(y, sr)
