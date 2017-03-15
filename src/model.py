@@ -102,10 +102,10 @@ class Model:
                 # summary_writer.add_summary(summary_str, step)
                 # summary_writer.flush()
 
-            # Save a checkpoint and evaluate the model periodically.
-            if (step + 1) % int(HYPARMS.max_steps/5) == 0 or (step + 1) == HYPARMS.max_steps:
-                self.step = step+1
-                self.save_saver()
+            # Save a checkpoint
+            # and evaluate the model periodically.
+
+            if (step + 1) % int(HYPARMS.max_steps/10) == 0 or (step + 1) == HYPARMS.max_steps:
                 # Evaluate against the training set.
                 print('Training Data Eval:')
                 do_eval(self.sess,
@@ -122,3 +122,5 @@ class Model:
                         self.placebundle.y_,
                         self.placebundle.keep_prob,
                         self.test_set)
+
+        self.save_saver()
