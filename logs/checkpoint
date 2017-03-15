@@ -1,0 +1,6 @@
+model_checkpoint_path: "trained_weight-1000"
+all_model_checkpoint_paths: "trained_weight-200"
+all_model_checkpoint_paths: "trained_weight-400"
+all_model_checkpoint_paths: "trained_weight-600"
+all_model_checkpoint_paths: "trained_weight-800"
+all_model_checkpoint_paths: "trained_weight-1000"

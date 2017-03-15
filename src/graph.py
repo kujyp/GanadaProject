@@ -6,19 +6,19 @@ from .toolbox import weight_variable, bias_variable, max_pool_2x2, conv2d
 def placeholder_inputs(batch_size):
     w_conv1 = weight_variable([5, 5, 1, 32], "w_conv1")
     w_conv2 = weight_variable([5, 5, 32, 64], "w_conv2")
-    w_fc1 = weight_variable([7 * 7 * 64, 1024], "w_fc1")
-    w_fc2 = weight_variable([1024, 10], "w_fc2")
+    w_fc1 = weight_variable([10 * 10 * 64, 1024], "w_fc1")
+    w_fc2 = weight_variable([1024, 15], "w_fc2")
     W = Weight(w_conv1,w_conv2,w_fc1,w_fc2)
 
     b_conv1 = bias_variable([32], "b_conv1")
     b_conv2 = bias_variable([64], "b_conv2")
     b_fc1 = bias_variable([1024], "b_fc1")
-    b_fc2 = bias_variable([10], "b_fc2")
+    b_fc2 = bias_variable([15], "b_fc2")
     B = Weight(b_conv1, b_conv2, b_fc1, b_fc2)
 
     keep_prob = tf.placeholder(tf.float32)
 
-    x = tf.placeholder(tf.float32, shape=[batch_size, 784])
+    x = tf.placeholder(tf.float32, shape=[batch_size, 40,40])
     y_ = tf.placeholder(tf.int32, shape=[batch_size])
 
     placebundle = Placebundle(x, y_, W,B,keep_prob)
@@ -34,13 +34,13 @@ def graph_model(placebundle):
     keep_prob = placebundle.keep_prob
 
 
-    x_image = tf.reshape(x, [-1, 28, 28, 1])
+    x_image = tf.reshape(x, [-1, 40, 40, 1])
     h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
     h_pool1 = max_pool_2x2(h_conv1)
     h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
     h_pool2 = max_pool_2x2(h_conv2)
 
-    h_pool2_flat = tf.reshape(h_pool2, [-1, 7 * 7 * 64])
+    h_pool2_flat = tf.reshape(h_pool2, [-1, 10 * 10 * 64])
     h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
     h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
 

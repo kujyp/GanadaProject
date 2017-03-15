@@ -57,6 +57,10 @@ class Model:
     def init_saver(self):
         self.checkpoint_file = os.path.join(HYPARMS.ckpt_dir, HYPARMS.ckpt_name)
         self.saver = tf.train.Saver()
+        #if tf.gfile.Exists(HYPARMS.ckpt_dir):
+        #    tf.gfile.DeleteRecursively(HYPARMS.ckpt_dir)
+        if not tf.gfile.Exists(HYPARMS.ckpt_dir):
+            tf.gfile.MakeDirs(HYPARMS.ckpt_dir)
 
     def save_saver(self):
         self.saver.save(self.sess, self.checkpoint_file, global_step=self.step)
@@ -90,7 +94,7 @@ class Model:
                                      feed_dict=feed_dict)
 
             duration = time.time() - start_time
-            if step % 100 == 0:
+            if step % 50 == 0:
                 # Print status to stdout.
                 print('Step %d: loss = %.2f (%.3f sec)' % (step, loss_value, duration))
                 # Update the events file.
@@ -99,7 +103,7 @@ class Model:
                 # summary_writer.flush()
 
             # Save a checkpoint and evaluate the model periodically.
-            if (step + 1) % 1000 == 0 or (step + 1) == HYPARMS.max_steps:
+            if (step + 1) % 200 == 0 or (step + 1) == HYPARMS.max_steps:
                 self.step = step+1
                 self.save_saver()
                 # Evaluate against the training set.
