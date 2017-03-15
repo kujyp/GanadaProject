@@ -5,7 +5,7 @@ class Hyparms():
 HYPARMS = Hyparms()
 
 HYPARMS.batch_size = 20
-HYPARMS.learning_rate = 0.001
+HYPARMS.learning_rate = 0.01
 HYPARMS.max_steps = 3000
 HYPARMS.log_dir = 'logs'
 HYPARMS.train_data_dir = 'data/train'

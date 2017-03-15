@@ -94,7 +94,7 @@ class Model:
                                      feed_dict=feed_dict)
 
             duration = time.time() - start_time
-            if step % 50 == 0:
+            if step % 100 == 0:
                 # Print status to stdout.
                 print('Step %d: loss = %.2f (%.3f sec)' % (step, loss_value, duration))
                 # Update the events file.
@@ -103,7 +103,7 @@ class Model:
                 # summary_writer.flush()
 
             # Save a checkpoint and evaluate the model periodically.
-            if (step + 1) % 200 == 0 or (step + 1) == HYPARMS.max_steps:
+            if (step + 1) % int(HYPARMS.max_steps/5) == 0 or (step + 1) == HYPARMS.max_steps:
                 self.step = step+1
                 self.save_saver()
                 # Evaluate against the training set.
