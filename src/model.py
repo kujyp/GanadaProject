@@ -76,8 +76,9 @@ class Model:
     def train(self):
         init = tf.initialize_all_variables()
         self.sess.run(init)
+        start_time = time.time()
         for step in range(HYPARMS.max_steps):
-            start_time = time.time()
+            step_start_time = time.time()
 
             feed_dict = fill_feed_dict(self.train_set,
                                        self.placebundle.x,
@@ -93,10 +94,10 @@ class Model:
             _, loss_value = self.sess.run([self.train_op, self.loss],
                                      feed_dict=feed_dict)
 
-            duration = time.time() - start_time
+            step_duration = time.time() - step_start_time
             if step % 100 == 0:
                 # Print status to stdout.
-                print('Step %d: loss = %.2f (%.3f sec)' % (step, loss_value, duration))
+                print('Step %d: loss = %.2f (%.3f sec)' % (step, loss_value, step_duration))
                 # Update the events file.
                 # summary_str = sess.run(summary, feed_dict=feed_dict)
                 # summary_writer.add_summary(summary_str, step)
@@ -123,4 +124,6 @@ class Model:
                         self.placebundle.keep_prob,
                         self.test_set)
 
+        duration = time.time() - start_time
+        print('Duration = (%.3f sec)' % (duration))
         self.save_saver()
