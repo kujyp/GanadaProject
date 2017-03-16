@@ -3,6 +3,7 @@
 .idea
 data
 .DS_Store
+logs
 
 ### Python template
 # Byte-compiled / optimized / DLL files
