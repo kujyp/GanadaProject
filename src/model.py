@@ -126,4 +126,5 @@ class Model:
 
         duration = time.time() - start_time
         print('Duration = (%.3f sec)' % (duration))
+        self.step = step
         self.save_saver()
